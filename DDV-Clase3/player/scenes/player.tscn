@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbncg1wvug2ou"]
+
+[ext_resource type="Script" path="res://player/scripts/player.gd" id="1_x4wvy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ex5ot"]
+height = 126.0
+
+[sub_resource type="Gradient" id="Gradient_21m5k"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hu5wk"]
+gradient = SubResource("Gradient_21m5k")
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_x4wvy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ex5ot")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0615234, 121.75)
+texture = SubResource("GradientTexture1D_hu5wk")
+
+[node name="Camera2D" type="Camera2D" parent="."]

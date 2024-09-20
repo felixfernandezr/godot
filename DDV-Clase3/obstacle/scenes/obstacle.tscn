@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://bod2544eeb5rv"]
+
+[ext_resource type="Script" path="res://obstacle/scripts/obstacle.gd" id="1_dch44"]
+[ext_resource type="Script" path="res://obstacle/scenes/stopper.gd" id="2_m4xtu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ej886"]
+size = Vector2(70, 62.5)
+
+[sub_resource type="Gradient" id="Gradient_mk8iv"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u2vwv"]
+gradient = SubResource("Gradient_mk8iv")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_287uu"]
+size = Vector2(70, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ljpp"]
+size = Vector2(70, 130)
+
+[node name="Obstacle" type="Node2D"]
+script = ExtResource("1_dch44")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+mass = 0.008
+can_sleep = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(0, 0.25)
+shape = SubResource("RectangleShape2D_ej886")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+self_modulate = Color(0.995231, 0.602598, 0.79456, 1)
+scale = Vector2(0.273438, 62)
+texture = SubResource("GradientTexture1D_u2vwv")
+
+[node name="Stopper" type="StaticBody2D" parent="."]
+position = Vector2(0, 35)
+script = ExtResource("2_m4xtu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stopper"]
+shape = SubResource("RectangleShape2D_287uu")
+
+[node name="Trigger" type="Area2D" parent="."]
+position = Vector2(0, 40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
+position = Vector2(0, 63)
+shape = SubResource("RectangleShape2D_8ljpp")
+
+[connection signal="body_entered" from="Trigger" to="Stopper" method="_on_trigger_body_entered"]
